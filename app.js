@@ -17,9 +17,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
+const posts = [];
 app.get("/", function(req, res) {
-  res.render("home", {
-    startingContent: homeStartingContent
+    res.render("home", {
+    startingContent: homeStartingContent,
+    posts: posts
   });
 });
 
@@ -40,7 +42,6 @@ app.get("/compose", function(req, res) {
 });
 
 let id = 0;
-var posts = [];
 
 app.post("/compose", function(req, res) {
   let postTitle = req.body.postTitle;
@@ -48,15 +49,14 @@ app.post("/compose", function(req, res) {
   id++;
 
   const post = {
-    idNumber: id,
+    id: id,
     title: req.body.postTitle,
     content: req.body.postBody
   };
 
   posts.push(post);
+  // this is a redirect to get request route "/" back to line 20
   res.redirect("/");
-  console.log(posts);
-
 });
 
 

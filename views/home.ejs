@@ -1,4 +1,13 @@
 <%- include('./partials/header.ejs') -%>
 <h1>HOME</h1>
 <p><%= startingContent %></p>
-  <%- include('./partials/footer.ejs') -%>
+
+<!-- <div class="article"> -->
+<% posts.forEach(function(post) { %>
+<%     console.log(post); %>
+<h1 class="title"><%= post.title.toUpperCase(); %> </h1>
+<p class="content"><%= post.content %></p>
+<% }); %>
+<!-- </div> -->
+
+<%- include('./partials/footer.ejs') -%>
