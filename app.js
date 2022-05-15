@@ -12,37 +12,52 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(express.static("public"));
 
 app.get("/", function(req, res) {
-  res.render("home", {startingContent: homeStartingContent});
+  res.render("home", {
+    startingContent: homeStartingContent
+  });
 });
 
-app.get("/about", function (req, res) {
-  res.render("about", {aboutContents:aboutContent});
+app.get("/about", function(req, res) {
+  res.render("about", {
+    aboutContents: aboutContent
+  });
 });
 
-app.get("/contact", function (req, res) {
-  res.render("contact", {contactContents:contactContent});
+app.get("/contact", function(req, res) {
+  res.render("contact", {
+    contactContents: contactContent
+  });
 });
 
-app.get("/compose", function (req, res) {
+app.get("/compose", function(req, res) {
   res.render("compose");
 });
 
+let id = 0;
+var posts = [];
 
-app.post("/compose", function (req, res) {
+app.post("/compose", function(req, res) {
   let postTitle = req.body.postTitle;
   let postBody = req.body.postBody;
-  console.log("Post Title: " + postTitle);
-  console.log("Post Body: " + postBody);
-  // posts.push(postTitle, postBody);
+  id++;
+
+  const post = {
+    idNumber: id,
+    title: req.body.postTitle,
+    content: req.body.postBody
+  };
+
+  posts.push(post);
+  res.redirect("/");
+  console.log(posts);
 
 });
-
-
-
 
 
 app.listen(3000, function() {
